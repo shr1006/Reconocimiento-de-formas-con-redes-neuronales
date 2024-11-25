@@ -1,21 +1,18 @@
-import numpy as np
-
-
 def entrena_perceptron(X, y, z, eta, t, funcion_activacion):
-    """ Entrena un perceptron simple
+    """ Entrena un perceptron simple para la clasificación binaria.
     Parámetros
     ----------
-        X -- valores de x_i para cada uno de los datos de entrenamiento
-        y -- valor de salida deseada para cada uno de los datos de entrenamiento
-        z -- valor del umbral para la función de activación
-        eta -- coeficiente de aprendizaje
-        t -- numero de epochs o iteraciones que se quieren realizar con los datos de entrenamiento
-        funcion_activacion -- función de activación para el perceptrón.
+        X --array valores de x_i para cada uno de los datos de entrenamiento
+        y --array valor de salida deseada para cada uno de los datos de entrenamiento
+        z --float valor del umbral para la función de activación
+        eta --float coeficiente de aprendizaje
+        t --int	 numero de epochs o iteraciones que se quieren realizar con los datos de entrenamiento
+        funcion_activacion --function función de activación para el perceptrón.
     
     Devolución
     --------
-        w -- valores de los pesos del perceptron
-        J -- error cuadrático obtenido de comparar la salida deseada con la que se obtiene 
+        w --array valores de los pesos del perceptron
+        J --list error cuadrático obtenido de comparar la salida deseada con la que se obtiene 
             con los pesos de cada iteración
     """  
    
@@ -53,17 +50,18 @@ def entrena_perceptron(X, y, z, eta, t, funcion_activacion):
 
 
 def predice(w, x, z, funcion_activacion):
-    """ Función para la predicción 
+    """ Función para la predicción
+	Realiza predicciones con un perceptron entrenado.
     Parámetros
     ----------
-        w -- array con los pesos obtenidos en el entrenamiento del perceptrón
-        x -- valores de x_i para cada uno de los datos de test
-        z -- valor del umbral para la función de activación
-        funcion_activacion -- función de activación para el perceptrón.
+        w --array array con los pesos obtenidos en el entrenamiento del perceptrón
+        x --array valores de x_i para cada uno de los datos de test
+        z --float valor del umbral para la función de activación
+        funcion_activacion --function función de activación para el perceptrón.
     
     Devolución
     --------
-        y -- array con los valores predichos para los datos de test
+        y --array array con los valores predichos para los datos de test
     """ 
     # Inicializar un array para las predicciones
     y = np.zeros(len(x))
@@ -80,15 +78,15 @@ def predice(w, x, z, funcion_activacion):
 
 
 def evalua(y_test, y_pred):
-    """ Función de evaluación del perceptrón para calcular el porcentaje de aciertos
+    """ Función de evaluación del rendimiento del perceptrón para calcular el porcentaje de aciertos
     Parámetros
     ----------
-        y_test -- array con los valores salida conocidos para los datos de test
-        y_pred -- array con los valores salida estimados por el perceptrón para los datos de test
+        y_test --array array con los valores salida conocidos para los datos de test
+        y_pred --array array con los valores salida estimados por el perceptrón para los datos de test
     
     Devolución
     --------
-        acierto -- float con el valor del porcentaje de valores acertados con respecto al total de elementos
+        acierto --float float con el valor del porcentaje de valores acertados con respecto al total de elementos
     """ 
     #cuantos valores predichos coinciden valores reales
     aciertos = np.sum(y_test == y_pred)
@@ -100,6 +98,14 @@ def evalua(y_test, y_pred):
 
 
 def crea_diccionario(archivo_claves):
+""" Crea un diccionario a partir de un archivo con claves.
+	Parámetros
+    ----------
+        archivo_claves:str ruta dek archivo que contiene los pares clave valor 
+    Devolución
+    --------
+        dicc: dict diccionario en el que las claves son enteris y los valores son los caracteres
+    """  
     dicc={}
     with open(archivo_claves,'r')as archivo:
         for lin in archivo:
@@ -113,16 +119,16 @@ def getdataset(images,labels, caracteres, num_pix):
     """ Obtiene los arrays de numpy con las imágenes y las etiquetas
     Parámetros
     ----------
-        imagenes -- estructura de datos que contiene la información de cada una de las imágenes
-        etiquetas -- estructura de datos que contiene la información de la clase a la que
+        imagenes --list estructura de datos que contiene la información de cada una de las imágenes
+        etiquetas --list estructura de datos que contiene la información de la clase a la que
         pertenece cada una de las imágenes
-        caracteres -- diccionario que contiene la "traducción" a ASCII de cada una de las etiquetas
-        num_pix -- valor de la resolución de la imagen (se debe obtener una imagen num_pix x num_pix)
+        caracteres --dict diccionario que contiene la "traducción" a ASCII de cada una de las etiquetas
+        num_pix --int valor de la resolución de la imagen (se debe obtener una imagen num_pix x num_pix)
     
     Devolución
     --------
-        X -- array 2D (numero_imagenes x numero_pixeles) con los datos de cada una de las imágenes
-        y -- array 1D (numero_imagenes) con el caracter que representa cada una de las imágenes
+        X --array array 2D (numero_imagenes x numero_pixeles) con los datos de cada una de las imágenes
+        y --array array 1D (numero_imagenes) con el caracter que representa cada una de las imágenes
     """ 
     import numpy as np
     import warnings
@@ -150,15 +156,6 @@ def getdataset(images,labels, caracteres, num_pix):
     X=np.array(X)
     y=np.array(y)
                   
-        
-
-    #Completar el código necesario:
-    #  Recorre todos las imágenes y etiquetas
-    #  Asigna un caracter al valor de etiqueta
-    #  Convierte cada imagen a un vector de tamaño (num_pix * num_pix)
-    #  Los datos de salida deben ser un array de numpy.
-    #  Si alguna imagen no es correcta, muestra un error y no almacenes ni la imagen ni la etiqueta
-    
     return X, y
 
 
