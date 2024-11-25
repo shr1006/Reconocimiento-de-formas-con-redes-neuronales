@@ -97,3 +97,68 @@ def evalua(y_test, y_pred):
     acierto = (aciertos / len(y_test)) * 100
     
     return acierto
+
+
+def crea_diccionario(archivo_claves):
+    dicc={}
+    with open(archivo_claves,'r')as archivo:
+        for lin in archivo:
+            clave,valor=lin.split()
+            dicc[int(clave)]=chr(int(valor))
+    return dicc
+
+def getdataset(images,labels, caracteres, num_pix):
+    from skimage.transform import resize
+    import warnings
+    """ Obtiene los arrays de numpy con las imágenes y las etiquetas
+    Parámetros
+    ----------
+        imagenes -- estructura de datos que contiene la información de cada una de las imágenes
+        etiquetas -- estructura de datos que contiene la información de la clase a la que
+        pertenece cada una de las imágenes
+        caracteres -- diccionario que contiene la "traducción" a ASCII de cada una de las etiquetas
+        num_pix -- valor de la resolución de la imagen (se debe obtener una imagen num_pix x num_pix)
+    
+    Devolución
+    --------
+        X -- array 2D (numero_imagenes x numero_pixeles) con los datos de cada una de las imágenes
+        y -- array 1D (numero_imagenes) con el caracter que representa cada una de las imágenes
+    """ 
+    import numpy as np
+    import warnings
+    warnings.filterwarnings("ignore")
+    
+    
+    X=[]#lista img procesadas
+    y=[]#lista etiquetas traducidas
+    
+    for i in range(len(images)):
+        if labels[i] not in caracteres:
+            print(f"etiqueta{labels[i]} no tiene un caracter asociado")
+            continue
+        #redimensionar
+        img_resized=resize(images[i], (16,16))
+        img_flatten = img_resized.flatten()  #a vector 
+        char=caracteres[labels[i]]#obtengo caracter correspondiente
+                  
+                  
+        #añadir los datos
+        X.append(img_flatten)
+        y.append(char)
+                  
+                  
+    X=np.array(X)
+    y=np.array(y)
+                  
+        
+
+    #Completar el código necesario:
+    #  Recorre todos las imágenes y etiquetas
+    #  Asigna un caracter al valor de etiqueta
+    #  Convierte cada imagen a un vector de tamaño (num_pix * num_pix)
+    #  Los datos de salida deben ser un array de numpy.
+    #  Si alguna imagen no es correcta, muestra un error y no almacenes ni la imagen ni la etiqueta
+    
+    return X, y
+
+
